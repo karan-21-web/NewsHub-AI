@@ -248,31 +248,37 @@ async function fetchNews() {
     );
   }
 
-  const response = await fetch(url, {
-    cache: 'no-store',
-  });
+  try {
 
-  const data = await response.json();
+    const response = await fetch(url);
 
-  if (!response.ok) {
+    const data = await response.json();
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.errors?.[0]
+        || data.message
+        || 'Failed to fetch news.'
+      );
+    }
+
+    if (!data.articles || data.articles.length === 0) {
+
+      throw new Error(
+        'No news articles found.'
+      );
+    }
+
+    return data.articles;
+
+  } catch (error) {
 
     throw new Error(
-      data.errors?.[0]
-      || 'Failed to fetch news.'
+      'Unable to connect to news server.'
     );
   }
-
-  if (!data.articles
-      || data.articles.length === 0) {
-
-    throw new Error(
-      'No news articles found.'
-    );
-  }
-
-  return data.articles;
 }
-
 
 // ============================================================
 // CREATE NEWS CARD
