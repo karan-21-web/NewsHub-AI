@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewsHub AI</title>
+
+  <!-- Google Fonts: Clash Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== BACKGROUND BLOBS ========== -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header">
+    <div class="header-inner container">
+
+      <!-- Logo -->
+      <a href="#" class="logo" aria-label="NovaPulse Home">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">NewsHub<em>AI</em></span>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-wrapper">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          id="citySearch"
+          class="search-input"
+          placeholder="Search by city… e.g. Mumbai"
+          aria-label="Search news by city"
+          autocomplete="off"
+        />
+        <button class="search-btn" id="searchBtn" aria-label="Search">
+          Search
+        </button>
+      </div>
+
+      <!-- Dark Mode Toggle -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+        <span class="theme-icon" id="themeIcon">☀️</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- ========== CATEGORY FILTERS ========== -->
+  <nav class="category-nav container" aria-label="News categories">
+    <ul class="category-list" role="list">
+      <li>
+        <button class="cat-btn active" data-category="general" aria-pressed="true">
+          <span class="cat-emoji">🌐</span> Top News
+        </button>
+      </li>
+      <li>
+        <button class="cat-btn" data-category="sports" aria-pressed="false">
+          <span class="cat-emoji">🏆</span> Sports
+        </button>
+      </li>
+      <li>
+        <button class="cat-btn" data-category="politics" aria-pressed="false">
+          <span class="cat-emoji">🏛️</span> Politics
+        </button>
+      </li>
+      <li>
+        <button class="cat-btn" data-category="technology" aria-pressed="false">
+          <span class="cat-emoji">💻</span> Technology
+        </button>
+      </li>
+      <li>
+        <button class="cat-btn" data-category="business" aria-pressed="false">
+          <span class="cat-emoji">📈</span> Business
+        </button>
+      </li>
+      <li>
+        <button class="cat-btn" data-category="entertainment" aria-pressed="false">
+          <span class="cat-emoji">🎬</span> Entertainment
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main-content container" id="mainContent">
+
+    <!-- Section Heading -->
+    <div class="section-head">
+      <h2 class="section-title" id="sectionTitle">Latest Headlines</h2>
+      <span class="live-badge" aria-label="Live updates">● LIVE</span>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="spinner-wrapper" id="spinnerWrapper" aria-live="polite" aria-label="Loading news">
+      <div class="spinner" role="status">
+        <span class="sr-only">Loading…</span>
+      </div>
+      <p class="spinner-text">Fetching the pulse…</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-box" id="errorBox" role="alert" aria-live="assertive" hidden>
+      <span class="error-icon">⚠️</span>
+      <p class="error-msg" id="errorMsg">Something went wrong. Please try again.</p>
+      <button class="retry-btn" id="retryBtn">Retry</button>
+    </div>
+
+    <!-- News Grid -->
+    <div class="news-grid" id="newsGrid" aria-live="polite"></div>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">⚡ NewsHub AI</span>
+      <span class="footer-note">Powered by <a href="https://newsapi.org" target="_blank" rel="noopener">NewsAPI.org</a></span>
+      <span class="footer-copy">© 2026 NewsHub AI</span>
+    </div>
+  </footer>
+
+  <!-- Main JS -->
+  <script src="app.js"></script>
+</body>
+</html>
