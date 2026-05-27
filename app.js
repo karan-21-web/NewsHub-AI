@@ -7,9 +7,8 @@
 // CONFIGURATION
 // ============================================================
 
-const NEWS_API_KEY = '8ac704f9c56e77065bdd76914e4a787c';
 
-const API_BASE = 'https://gnews.io/api/v4/search';
+const API_BASE = 'http://localhost:5000/news';
 
 const MAX_ARTICLES = 10;
 
@@ -192,42 +191,9 @@ function buildApiUrl() {
 
   const params = new URLSearchParams();
 
-  params.set('apikey', NEWS_API_KEY);
+  params.set('category', state.category);
 
-  params.set('max', MAX_ARTICLES);
-
-  params.set('lang', 'en');
-
-  params.set('sortby', 'publishedAt');
-
-  let query = '';
-
-  // City + Category
-  if (state.city.trim()) {
-
-    query = state.city.trim();
-
-    if (state.category !== 'general') {
-      query += ` ${state.category}`;
-    }
-
-  }
-
-  // Category only
-  else if (state.category !== 'general') {
-
-    query = state.category;
-
-  }
-
-  // Default
-  else {
-
-    query = 'India';
-
-  }
-
-  params.set('q', query);
+  params.set('city', state.city || 'India');
 
   return `${API_BASE}?${params.toString()}`;
 }
@@ -236,17 +202,9 @@ function buildApiUrl() {
 // ============================================================
 // FETCH NEWS
 // ============================================================
-
 async function fetchNews() {
 
   const url = buildApiUrl();
-
-  if (NEWS_API_KEY === 'YOUR_GNEWS_API_KEY') {
-
-    throw new Error(
-      'Please add your GNews API key.'
-    );
-  }
 
   try {
 
@@ -257,7 +215,7 @@ async function fetchNews() {
     if (!response.ok) {
 
       throw new Error(
-        data.errors?.[0]
+        data.error
         || data.message
         || 'Failed to fetch news.'
       );
@@ -274,12 +232,13 @@ async function fetchNews() {
 
   } catch (error) {
 
+    console.error(error);
+
     throw new Error(
-      'Unable to connect to news server.'
+      error.message || 'Unable to connect to news server.'
     );
   }
 }
-
 // ============================================================
 // CREATE NEWS CARD
 // ============================================================
