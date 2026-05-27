@@ -8,7 +8,7 @@
 // ============================================================
 
 
-const API_BASE = 'http://localhost:5000/news';
+const API_BASE = 'https://newshub-ai.onrender.com/news';
 
 const MAX_ARTICLES = 10;
 
